@@ -93,7 +93,7 @@ XF86Audio{Next,Prev,Play,Stop}
 ##---------- Bspwm ----------##
 
 # Hide/Unhide Window
-super + shift + h
+super + shift + i
 	bspwinmask
 
 # Close App
@@ -125,8 +125,12 @@ super + ctrl + shift + {Left,Right}
 	bspc node -d {prev,next} '--follow'
 
 # Change focus of the Node or Swap Nodes
-super + {_,shift + }{Left,Down,Up,Right}
+super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
+
+# Change focus of the window
+super + {h,j,k,l}
+ bspc node -f {west,south,north,east}
 
 # Move floating windows
 super + alt + shift + {Left,Down,Up,Right}
@@ -141,7 +145,7 @@ super + alt + {Left,Right,Up,Down}
 	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
 
 # Split horizontal, vertical or cancel
-super + {h,v,q}
+super + alt + {h,v,q}
 	bspc node -p {east,south,cancel}
 
 # Preselect the ratio
@@ -149,8 +153,8 @@ super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
 # Toggle Layout (Tiled/Monocle)
-super + l
-	bspc desktop -l next
+# super + l
+	# bspc desktop -l next
 
 # Toggle Fullscreen
 super + f
