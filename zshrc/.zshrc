@@ -26,6 +26,11 @@ export HISTFILE=~/.zsh_history
 export SAVEHIST=10000
 export HISTSIFE=10000
 
+# zsh-syntax-highlighting override configs
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#ff0000,bold'
+ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=blue,underline'
+
 alias ssh='TERM=xterm-256color ssh'
 alias zshconfig="lvim ~/.zshrc"
 
