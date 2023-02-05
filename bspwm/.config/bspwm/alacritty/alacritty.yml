@@ -29,8 +29,8 @@ window:
   dynamic_title: true
 
 ## scrolling
-  history: 10000
-  multiplier: 3
+  # history: 10000
+  # multiplier: 3
 
 ## Background opacity
   opacity: 0.85
