@@ -60,11 +60,11 @@ lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
+-- lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
-
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
+lvim.builtin.terminal.open_mapping = "<c-t>"
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
@@ -87,6 +87,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.transparent_window = true
 
 lvim.builtin.lualine.style = "default"
+
 
 -- generic LSP settings
 
@@ -165,7 +166,83 @@ lvim.builtin.lualine.style = "default"
 
 -- Additional Plugins
 lvim.plugins = {
+  {
+    "f-person/git-blame.nvim",
+    event = "BufRead",
+    config = function()
+      vim.cmd "highlight default link gitblame SpecialComment"
+      vim.g.gitblame_enabled = 0
+    end,
+  },
+  {
+    "p00f/nvim-ts-rainbow",
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
+  {
+    "ellisonleao/glow.nvim",
+    config = function()
+      require('glow').setup({
+        style = "dark",
+        width = 120,
+      })
+    end,
+    cmd = "Glow"
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ '*' }, {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+      })
+    end,
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function() require "lsp_signature".setup(
+        {
+          floating_window_off_x = 5, -- adjust float windows x position.
+          floating_window_off_y = function() -- adjust float windows y position. e.g. set to -2 can make floating window move up 2 lines
+            local linenr = vim.api.nvim_win_get_cursor(0)[1] -- buf line number
+            local pumheight = vim.o.pumheight
+            local winline = vim.fn.winline() -- line number in the window
+            local winheight = vim.fn.winheight(0)
+
+            -- window top
+            if winline - 1 < pumheight then
+              return pumheight
+            end
+
+            -- window bottom
+            if winheight - winline < pumheight then
+              return -pumheight
+            end
+            return 0
+          end,
+        })
+    end,
+  },
+  {
+    'LaTeX-Box-Team/LaTeX-Box',
+    -- config = function()
+    --   vim.g.
+    -- end,
+  },
 }
+
+lvim.builtin.treesitter.rainbow.enable = true
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
@@ -188,5 +265,10 @@ vim.cmd([[
     map oj o<esc>
     map ok O<esc>
     imap jj <esc>
-    imap kk <esc>  
+    imap kk <esc>
+    imap jk <esc>
+    imap kj <esc>
+    nnoremap <leader>t <cmd>TodoTelescope<cr>
+    map [ll <cmd>Latexmk<cr> 
+    map [lv <cmd>LatexView<cr>
 ]])
