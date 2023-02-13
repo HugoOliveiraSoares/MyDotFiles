@@ -56,7 +56,7 @@ ctrl + alt + l
 
 # Take a screenshot
 Print
-	bspscreenshot --now
+  flameshot gui
 	
 # Take screenshot in 5 second
 alt + Print	
