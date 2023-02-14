@@ -12,6 +12,11 @@ configuration {
     display-window:             " Windows";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
+  run-command: "{cmd}";
+  run-list-command: "";
+  run-shell-command: "{terminal} -e {cmd}";
+  matching: "normal";
+  tokenize: true;
 }
 
 /*****----- Global Properties -----*****/
